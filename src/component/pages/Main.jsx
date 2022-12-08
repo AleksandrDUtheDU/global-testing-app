@@ -1,8 +1,10 @@
 import styled from 'styled-components';
+import { useState, useEffect } from 'react';
 
+// import { getData } from '../../services/ajax';
 import { Button } from '../theme/Button';
 import Search from '../theme/SearchInput';
-import Animation from '../theme/Animation';
+import Animation from './Animation';
 import people1 from '../../resources/icons/people/1.svg'
 import people2 from '../../resources/icons/people/2.svg'
 import people3 from '../../resources/icons/people/3.svg'
@@ -17,7 +19,6 @@ const TitleWrappColumn = styled.div`
     @media ${props => props.theme.media.bigTablet} {
         width: 70%;
         }
-
 `
 
 const Title = styled.h2`
@@ -46,6 +47,7 @@ const TitleDescr = styled.p`
     font-size: 15px;
     line-height: 26px;
     color: #7C7C7C;
+    transition: 3s all ;
     span {
         color:${props => props.color || props.theme.colors.selectColor};
     }
@@ -161,6 +163,31 @@ const AnimateWrappColumn = styled.div`
 
 function Main() {
 
+    const [descr, setDescr] = useState('We Make international calling simple, relible, and cheap basedon your unique calling behavior.')
+    // const description = descr.substring(0, 143) + '...'
+
+    async function getData(url) {
+        const response = await fetch(url)
+
+        const result = await response.json();
+
+        if (!response.ok) {
+            throw new Error(`Could not fetch ${url}, status: ${response.status}`);
+        }
+        const description = result[0].substring(0, 143) + '...'
+
+        console.log(description)
+        setDescr(description)
+
+        return result;
+    }
+
+
+    useEffect(() => {
+        getData('https://baconipsum.com/api/?type=lucky')
+    }, [descr]);
+
+
     return (
         <MainWrapp>
             <TitleWrappColumn>
@@ -172,7 +199,7 @@ function Main() {
                     With Bank Transfer
                 </Title>
                 <TitleDescr>
-                    We Make international calling simple, relible, and cheap basedon your unique calling behavior.
+                    {descr}
                 </TitleDescr>
                 <ButtonMain>Get Started</ButtonMain>
                 <Search />

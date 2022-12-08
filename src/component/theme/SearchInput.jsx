@@ -89,9 +89,7 @@ function Search({ props }) {
 
     const searchHandler = (e) => {
         setSearch(e.target.value)
-        // const valid = /^(?=.*[!@#$%^&(),.+=/\/\]\[{}?><":;|])/;
         const valid = /^(?=.*[!@#$%^&*()])/;
-
         if (valid.test(String(e.target.value).toLowerCase())) {
             setSearchError('Нельзя использовать символы "!@#$%^&*()"')
         } else if ((e.target.value.length < 4) && (e.target.value.length !== 0)) {
