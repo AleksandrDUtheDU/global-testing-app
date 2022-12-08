@@ -164,7 +164,6 @@ const AnimateWrappColumn = styled.div`
 function Main() {
 
     const [descr, setDescr] = useState('We Make international calling simple, relible, and cheap basedon your unique calling behavior.')
-    // const description = descr.substring(0, 143) + '...'
 
     async function getData(url) {
         const response = await fetch(url)
@@ -174,9 +173,8 @@ function Main() {
         if (!response.ok) {
             throw new Error(`Could not fetch ${url}, status: ${response.status}`);
         }
-        const description = result[0].substring(0, 143) + '...'
 
-        console.log(description)
+        const description = result[0].substring(0, 143) + '...'
         setDescr(description)
 
         return result;
