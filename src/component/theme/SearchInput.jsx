@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 import searchIcon from '../../resources/icons/search.png';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 
 const FormWrapp = styled.form`
     position: relative;
     width: 597px;
+    text-align: center;
     @media ${props => props.theme.media.notebook} {
         width: 400px;
     }
@@ -52,18 +53,51 @@ const SearchInput = styled.input`
     outline: none;
 }
 `
+const ErrorMessageText = styled.div`
+    margin-top: 10px;
+    height: 18px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 18px;
+    color: red;`
 
 function Search({ props }) {
 
     const [search, setSearch] = useState('');
     const [searchDirty, setSearchDirty] = useState('');
     const [searchError, setSearchError] = useState('');
+    const [formValid, setFormValid] = useState(false)
+
+    useEffect(() => {
+        if (searchError) {
+            setFormValid(false)
+        } else {
+            setFormValid(true)
+        }
+
+    }, [searchError]);
+
+    function onSubmit(e) {
+        e.preventDefault();
+        console.log(e.target)
+        if (!searchError && formValid && search) {
+            alert(search)
+        }
+    }
 
     const searchHandler = (e) => {
         setSearch(e.target.value)
-        const valid = /^(?=.*[!@#$%^&(),.+=/\/\]\[{}?><":;|])/;
+        // const valid = /^(?=.*[!@#$%^&(),.+=/\/\]\[{}?><":;|])/;
+        const valid = /^(?=.*[!@#$%^&*()])/;
+
         if (valid.test(String(e.target.value).toLowerCase())) {
-            setSearchError('Присутствуют запрещенные символы!')
+            setSearchError('Нельзя использовать символы "!@#$%^&*()"')
+        } else if ((e.target.value.length < 4) && (e.target.value.length !== 0)) {
+            setSearchError('Символов должнобыть не меньше 4')
+        } else if (e.target.value.length > 12) {
+            setSearchError('Символов должнобыть не больше 12')
         } else {
             setSearchError('')
         }
@@ -77,10 +111,10 @@ function Search({ props }) {
 
 
     return (
-        <FormWrapp>
-            <SearchBtn type='submit' />
-            <SearchInput onChange={e => searchHandler(e)} onBlur={e => blurHandler(e)} value={search} name='search' placeholder='Where do you want to call?' type="search" minLength="4" maxLength="12" {...props} />
-            {(searchDirty && searchError) && <div>{searchError}</div>}
+        <FormWrapp onSubmit={e => onSubmit(e)}>
+            <SearchBtn disabled={!formValid} type='submit' htmlFor="email" />
+            <SearchInput onChange={e => searchHandler(e)} onBlur={e => blurHandler(e)} value={search} id="email" name='search' placeholder='Where do you want to call?' type="search" minLength="4" maxLength="12" {...props} />
+            {(searchDirty && searchError) ? <ErrorMessageText>{searchError}</ErrorMessageText> : <ErrorMessageText></ErrorMessageText>}
         </FormWrapp>
     )
 }

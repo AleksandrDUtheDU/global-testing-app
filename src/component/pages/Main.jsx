@@ -58,7 +58,7 @@ const ButtonMain = styled(Button)`
 const UserWrapp = styled.div`
     display: flex;
     height: 38px;
-    margin-top: 40px;
+    margin-top: 12px;
     max-width: 362px;
     justify-content: space-between;
 `
