@@ -1,8 +1,15 @@
 import styled from 'styled-components';
 
 export const BackgroundColor = styled.div`
-    min-height: 757px;
+    height: 757px;
     background: ${props => props.color || props.theme.colors.bgColor};
+    @media ${props => props.theme.media.bigTablet} {
+        height: 1250px;
+    }
+    @media ${props => props.theme.media.phone} {
+        height: 737px;
+    }
+
 `
 
 export const Container = styled.div`

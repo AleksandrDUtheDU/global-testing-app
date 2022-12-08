@@ -6,7 +6,7 @@ import useOnClickOutside from './hooks/onClickOutside';
 import { MenuContext } from './navState';
 import HamburgerButton from './hamdurgerButton';
 import { SideMenu } from './sideMenu';
-import CustomLink from '../../component/theme/CustomLink';
+import { HeaderMenuCustomLink } from '../../component/theme/CustomLink';
 import { theme } from '../../component/theme/Theme';
 import Logo from '../../component/theme/Logo';
 import { Button } from '../../component/theme/Button';
@@ -32,6 +32,7 @@ const HeadMenuLinkWrapp = styled.ul`
     justify-content: space-between;
     width: 100%;
 `;
+
 
 const Bloked = styled.div`
     position: fixed;
@@ -64,7 +65,7 @@ const MainMenu = () => {
     const items = navigation.map(item => {
         const { id, name, link } = item;
         return (
-            <CustomLink key={id} to={`${link}`}> {name} </CustomLink>
+            <HeaderMenuCustomLink key={id} to={`${link}`}> {name} </HeaderMenuCustomLink>
         )
     })
 

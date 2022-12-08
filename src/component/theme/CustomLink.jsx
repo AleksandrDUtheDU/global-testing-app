@@ -7,7 +7,12 @@ const Wrapp = styled.li`
     justify-content: center;
     flex-direction: column;
     align-items: center;
-
+    opacity: 0;
+    animation: ani 2.5s forwards;
+    @keyframes ani {
+        0% {opacity: 0;}
+        100% {opacity: 1;}
+    }
 `
 
 const Privider = styled.div`
@@ -15,12 +20,9 @@ const Privider = styled.div`
     background: ${props => props.color || props.theme.colors.selectColor};
     height: 1.5px;
     width: 21px;
-    transition: all 1s ease 0s;
-
 `
 
-
-const StailedLink = styled(Link)`
+const HeaderMenuLink = styled(Link)`
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 400;
@@ -29,21 +31,46 @@ const StailedLink = styled(Link)`
     color: #4A4A4A;
 `
 
-const CustomLink = ({ children, id, to, ...props }) => {
+const SideMenuLink = styled(Link)`
+margin-top: 20px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 30px;
+    color: #4A4A4A;
+`
+
+export const HeaderMenuCustomLink = ({ children, id, to, ...props }) => {
 
     const match = useMatch(to)
 
     return (
         <Wrapp key={id}>
-            <StailedLink
+            <HeaderMenuLink
                 to={to}
                 {...props}
             >
                 {children}
-            </StailedLink>
+            </HeaderMenuLink>
             {match ? <Privider /> : ''}
         </Wrapp>
     )
 }
 
-export default CustomLink;
+export const SideMenuCustomLink = ({ children, id, to, ...props }) => {
+
+    const match = useMatch(to)
+
+    return (
+        <Wrapp key={id}>
+            <SideMenuLink
+                to={to}
+                {...props}
+            >
+                {children}
+            </SideMenuLink>
+            {match ? <Privider /> : ''}
+        </Wrapp>
+    )
+}

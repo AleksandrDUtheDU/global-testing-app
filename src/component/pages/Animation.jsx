@@ -149,7 +149,7 @@ const Item5 = styled.div`
 
 const ImgWrapp = styled.div`
     position: absolute;
-    left: 30%;
+    left: 40%;
     bottom: 0;
     z-index: 100;
     @media ${props => props.theme.media.notebook} {
@@ -157,7 +157,8 @@ const ImgWrapp = styled.div`
         bottom: -7px;
     }
     @media ${props => props.theme.media.bigTablet} {
-        left: 10%;
+        left: 15%;
+        
     }
 `
 
@@ -174,17 +175,16 @@ function Animation() {
 
     return (
         <>
-            {
-                isBigTablet ? '' :
-                    <BgGigCircle>
-                        <Item1 />
-                        <Item2 />
-                        <Item3 />
-                        <Item4 />
-                        <Item5 />
-                        <BgCircle />
-                    </BgGigCircle>
-            }
+            {/* {
+                isBigTablet ? '' : */}
+            <BgGigCircle>
+                <Item1 />
+                <Item2 />
+                <Item3 />
+                <Item4 />
+                <Item5 />
+                <BgCircle />
+            </BgGigCircle>
             <ImgWrapp>
                 <WomenImg img={women3} alt='women' />
             </ImgWrapp>

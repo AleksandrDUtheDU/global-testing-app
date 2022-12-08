@@ -5,10 +5,10 @@ import { useState, useEffect } from 'react';
 
 const FormWrapp = styled.form`
     position: relative;
-    width: 597px;
+    width: 100%;
     text-align: center;
     @media ${props => props.theme.media.notebook} {
-        width: 400px;
+        /* width: 400px; */
     }
 `
 
